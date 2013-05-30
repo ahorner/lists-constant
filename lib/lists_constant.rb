@@ -5,6 +5,14 @@ require 'active_support/concern'
 module ListsConstant
   extend ActiveSupport::Concern
 
+  def self.namespace
+    "#{@namespace}." if @namespace
+  end
+
+  def self.namespace=(namespace)
+    @namespace = namespace
+  end
+
   module ClassMethods
 
     def lists_constant(*values)
@@ -25,7 +33,7 @@ module ListsConstant
     def add_constant_list_getters(field)
       define_singleton_method field do
         const_get(field.upcase).inject({}) do |hash, value|
-          hash[value] = I18n.t(value, scope: "#{name.underscore}.#{field}")
+          hash[value] = I18n.t(value, scope: "#{ListsConstant.namespace}#{name.underscore}.#{field}")
           hash
         end
       end
@@ -40,7 +48,7 @@ module ListsConstant
         value = send(field.singularize)
         return nil if value.nil? || value.empty?
 
-        I18n.t(value, scope: "#{self.class.name.underscore}.#{field}")
+        I18n.t(value, scope: "#{ListsConstant.namespace}#{self.class.name.underscore}.#{field}")
       end
     end
 

@@ -82,6 +82,34 @@ describe ListsConstant do
         listed = Lister.new(:red)
         assert_equal listed.localized_color, @translations[:red]
       end
+
+      describe "with a namespace" do
+        before do
+          ListsConstant.namespace = :mistranslations
+
+          @mistranslations = {
+            red: 'sangriento',
+            blue: 'morado',
+            yellow: 'gallina'
+          }
+
+          I18n.backend.store_translations :es, {
+            mistranslations: {
+              lister: {
+                colors: @mistranslations
+              }
+            }
+          }
+        end
+
+        it "scopes within the namespace for localization" do
+          assert_equal Lister.colors, {
+            red: @mistranslations[:red],
+            blue: @mistranslations[:blue],
+            yellow: @mistranslations[:yellow]
+          }
+        end
+      end
     end
   end
 end
