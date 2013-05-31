@@ -12,7 +12,7 @@ out of your model classes.
 
 Add this line to your application's Gemfile:
 
-    gem 'lists-constant'
+    gem 'lists_constant'
 
 And then execute:
 
@@ -20,7 +20,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install lists-constant
+    $ gem install lists_constant
 
 ## Usage
 
@@ -78,10 +78,10 @@ MyStateMachine.steps[:first]
 
 MyStateMachine.step_options
 # => {
-    'Initialize' => :first,
-    'Validate' => :second,
-    'Save' => :third
-  }
+#   'Initialize' => :first,
+#   'Validate' => :second,
+#   'Save' => :third
+# }
 
 I18n.locale = :es
 MyStateMachine.steps[:first]
