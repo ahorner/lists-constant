@@ -4,13 +4,18 @@ require File.expand_path('../lib/lists_constant/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Andrew Horner"]
   gem.email         = ["andrew@tablexi.com"]
+
+  gem.homepage      = "https://github.com/ahorner/lists-constant"
   gem.description   = %q{Easily create localization-friendly constant lists}
   gem.summary       = %q{
-    ListsConstant supplies a module which allows easy definition of lists of
-    constant values for a Ruby class. I18n is used to translate the listed
+    ListsConstant is a module which allows you to easily define
+    lists of constant values. I18n is used to translate the listed
     constants into readable values.
+
+    This library is intended to make it simple to keep view-specific
+    information (like the text representations of your listed values)
+    out of your model classes.
   }
-  gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
   gem.test_files    = gem.files.grep(%r{^test/})

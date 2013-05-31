@@ -27,7 +27,8 @@ Or install it yourself as:
 Example:
 
 In `my_state_machine.rb`:
-```
+
+``` ruby
 class MyStateMachine
   include ListsConstant
   lists_constant :first, :second, :third, as: :steps
@@ -40,6 +41,7 @@ end
 ```
 
 In `locales/en.yml`:
+
 ```
 en:
   my_state_machine:
@@ -50,6 +52,7 @@ en:
 ```
 
 In `locales/es.yml`:
+
 ```
 es:
   my_state_machine:
@@ -60,13 +63,15 @@ es:
 ```
 
 Using the generated constant:
-```
+
+``` ruby
 MyStateMachine::STEPS
 # => [:first, :second, :third]
 ```
 
 Using class-level localization:
-```
+
+``` ruby
 I18n.locale = :en
 MyStateMachine.steps[:first]
 # => 'Initialize'
@@ -84,7 +89,8 @@ MyStateMachine.steps[:first]
 ```
 
 Instance query methods:
-```
+
+``` ruby
 msm = MyStateMachine.new(:second)
 
 msm.step_second?
@@ -95,7 +101,8 @@ msm.step_third?
 ```
 
 Using instance-level localization:
-```
+
+``` ruby
 I18n.locale = :en
 msm.localized_step
 # => 'Validate'
@@ -103,6 +110,22 @@ msm.localized_step
 I18n.locale = :es
 msm.localized_step
 # => 'Valide'
+```
+
+Localization lookups may be scoped by assigning a namespace to
+the `ListsConstant` module:
+
+```
+en:
+  activerecord:
+    attributes:
+      my_state_machine:
+        steps:
+...
+```
+
+``` ruby
+ListsConstant.namespace = 'activerecord.attributes'
 ```
 
 ## Contributing
