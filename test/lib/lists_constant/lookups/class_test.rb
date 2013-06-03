@@ -13,6 +13,12 @@ describe ListsConstant::Lookups::Class do
     Lister.send :remove_const, 'COLORS'
   end
 
+  it "determines if a passed value is available" do
+    assert Lister.includes_color?(:red)
+    assert Lister.includes_color?('blue')
+    refute Lister.includes_color?(:magenta)
+  end
+
   describe "given I18n translations" do
     before do
       @translations = {

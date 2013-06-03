@@ -69,7 +69,7 @@ MyStateMachine::STEPS
 # => [:first, :second, :third]
 ```
 
-Using class-level localization:
+Class-level localization:
 
 ``` ruby
 I18n.locale = :en
@@ -88,6 +88,31 @@ MyStateMachine.steps[:first]
 # => 'Inicie'
 ```
 
+Class query method:
+
+``` ruby
+MyStateMachine.includes_step? :first
+# => true
+
+MyStateMachine.includes_step? 'second'
+# => true
+
+MyStateMachine.includes_step? 'profit!'
+# => false
+```
+
+Instance-level localization:
+
+``` ruby
+I18n.locale = :en
+msm.localized_step
+# => 'Validate'
+
+I18n.locale = :es
+msm.localized_step
+# => 'Valide'
+```
+
 Instance query methods:
 
 ``` ruby
@@ -98,18 +123,6 @@ msm.step_second?
 
 msm.step_third?
 # => false
-```
-
-Using instance-level localization:
-
-``` ruby
-I18n.locale = :en
-msm.localized_step
-# => 'Validate'
-
-I18n.locale = :es
-msm.localized_step
-# => 'Valide'
 ```
 
 Localization lookups may be scoped by assigning a namespace to
