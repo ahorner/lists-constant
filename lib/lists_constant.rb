@@ -1,5 +1,8 @@
-require_relative './lists_constant/version'
-require_relative './lists_constant/class_methods'
+require 'active_support/inflector'
+
+require 'lists_constant/version'
+require 'lists_constant/lookups'
+require 'lists_constant/class_methods'
 
 module ListsConstant
 

@@ -1,6 +1,3 @@
-require 'lists_constant/constant'
-require 'lists_constant/lookup'
-
 module ListsConstant
 
   module ClassMethods
@@ -10,8 +7,9 @@ module ListsConstant
       field = options[:as].to_s
       raise ArgumentError.new('A constant name must be provided using the :as option') if field.empty?
 
-      ListsConstant::Constant.new(self, field, values)
-      ListsConstant::Lookup.new(self, field, values)
+      const_set field.upcase, values.freeze
+      extend ListsConstant::Lookups::Class.new(field, values)
+      include ListsConstant::Lookups::Instance.new(field, values)
     end
   end
 end

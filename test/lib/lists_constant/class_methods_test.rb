@@ -2,11 +2,10 @@ require_relative '../../test_helper'
 
 describe ListsConstant::ClassMethods do
   before do
-    I18n.locale = :en
     Lister.send :extend, ListsConstant::ClassMethods
   end
 
-  it "requires a name for the constant list" do
+  it "requires a name for a list constant" do
     assert_raises ArgumentError do
       Lister.lists_constant :red, :blue, :yellow
     end

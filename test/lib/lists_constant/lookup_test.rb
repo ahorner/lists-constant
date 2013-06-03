@@ -2,16 +2,7 @@ require_relative '../../test_helper'
 
 describe ListsConstant::Lookup do
   before do
-    @colors = [:red, :blue, :yellow]
-    ListsConstant::Lookup.new(Lister, 'colors', @colors)
-  end
-
-  it "adds instance query methods for each value" do
-    listed = Lister.new(:red)
-
-    assert listed.color_red?
-    refute listed.color_yellow?
-    refute listed.color_blue?
+    @lookup = ListsConstant::Lookup.new(Lister, 'colors')
   end
 
   describe "given I18n translations" do
@@ -31,9 +22,42 @@ describe ListsConstant::Lookup do
       I18n.locale = :es
     end
 
-    it "localizes the variable description" do
-      listed = Lister.new(:red)
-      assert_equal listed.localized_color, @translations[:red]
+    it "generates a hash of the localized names with their values" do
+      assert_equal @lookup.lookup(:red), @translations[:red]
+      assert_equal @lookup.lookup(:blue), @translations[:blue]
+      assert_equal @lookup.lookup(:yellow), @translations[:yellow]
     end
   end
+
+  describe "with a specified namespace" do
+    before do
+      ListsConstant.namespace = :mistranslations
+
+      @mistranslations = {
+        red: 'sangriento',
+        blue: 'morado',
+        yellow: 'gallina'
+      }
+
+      I18n.backend.store_translations :es, {
+        mistranslations: {
+          lister: {
+            colors: @mistranslations
+          }
+        }
+      }
+    end
+
+    after do
+      ListsConstant.namespace = nil
+    end
+
+    it "scopes within the lookup for localization" do
+      assert_equal @lookup.lookup(:red), @mistranslations[:red]
+      assert_equal @lookup.lookup(:blue), @mistranslations[:blue]
+      assert_equal @lookup.lookup(:yellow), @mistranslations[:yellow]
+    end
+  end
+
+
 end
