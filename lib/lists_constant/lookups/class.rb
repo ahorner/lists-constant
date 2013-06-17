@@ -44,7 +44,7 @@ module ListsConstant
         field = @field
 
         base.define_singleton_method "localized_#{field.singularize}" do |value|
-          send(field)[value.to_sym] unless value.nil?
+          ListsConstant::Lookup.new(self, field).lookup(value)
         end
       end
 

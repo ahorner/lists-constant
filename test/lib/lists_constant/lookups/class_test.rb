@@ -47,6 +47,7 @@ describe ListsConstant::Lookups::Class do
     it "localizes passed values" do
       assert_equal Lister.localized_color(:red), @translations[:red]
       assert_equal Lister.localized_color('blue'), @translations[:blue]
+      assert_equal Lister.localized_color(:magenta), nil
     end
 
     it "generates an inverted hash for option helpers" do
