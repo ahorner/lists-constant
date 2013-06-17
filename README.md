@@ -73,8 +73,12 @@ Class-level localization:
 
 ``` ruby
 I18n.locale = :en
+
 MyStateMachine.steps[:first]
-# => 'Initialize'
+# => 'Initalize'
+
+MyStateMachine.localized_step('second')
+# => 'Validate'
 
 MyStateMachine.step_options
 # => {
