@@ -75,7 +75,7 @@ Class-level localization:
 I18n.locale = :en
 
 MyStateMachine.steps[:first]
-# => 'Initalize'
+# => 'Initialize'
 
 MyStateMachine.localized_step('second')
 # => 'Validate'
